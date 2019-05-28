@@ -1,0 +1,91 @@
+\documentclass[letterpaper]{article}
+\setlength{\textwidth}{168mm}
+\setlength{\textheight}{210mm}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\topmargin}{0cm}
+\setlength{\headheight}{1cm}
+\voffset -0.5in
+\usepackage[printwatermark]{xwatermark}
+\usepackage{lipsum}
+\usepackage{fontspec} 
+\usepackage{makecell}
+\setmainfont{[AncizarSans.otf]}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{footmisc}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{xargs}
+\usepackage{booktabs}
+\usepackage{draftwatermark}
+\usepackage{listings}
+\usetikzlibrary{arrows,shapes}
+\usepackage{stackrel}
+\usepackage{amsmath}
+\usepackage{verbatim}
+\usepackage{xcolor,pstricks}
+\let\clipbox\relax
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[export]{adjustbox}
+\usepackage{enumerate} 
+\hypersetup{
+    colorlinks,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black
+}
+\pagestyle{fancy}
+\renewcommand{\headrule}{\color{kwii_color}
+\hrule width\headwidth height\headrulewidth \vskip-\headrulewidth}
+\renewcommand{\footrule}{{\color{kwii_color}
+\vskip-\footruleskip\vskip-\footrulewidth
+\hrule width\headwidth height\footrulewidth\vskip\footruleskip}}
+\renewcommand{\headrulewidth}{1.5pt}
+\renewcommand{\footrulewidth}{1.5pt}
+
+\usepackage{draftwatermark}
+\SetWatermarkText{\includegraphics{Figures/watermark.jpg}}
+\definecolor{kwii_color}{RGB}{171,210,155}
+\begin{document}
+
+    \title{ADD}
+    \fancyhead{}
+    \fancyfoot{}
+    \fancyhead[L]{\vspace{-50cm}
+        \begin{minipage}{3cm}
+            \begin{flushleft}
+                \includegraphics[height=1.5cm]{Figures/Logo.jpg}
+            \end{flushleft}
+        \end{minipage}
+    }
+    \fancyhead[R]{
+        \begin{minipage}{11cm}
+            \begin{flushright}
+                \includegraphics[width=\textwidth]{Figures/Unal}
+            \end{flushright}
+        \end{minipage}
+    }
+    \fancyfoot[R]{\large \textbf{\thepage}}
+
+    \begin{minipage}{0.20\textwidth}
+        \begin{flushleft}
+            \textbf{Elaborado por:}\\
+            \textit{Equipo A - Clifford \\}
+        \end{flushleft}
+    \end{minipage}
+    \begin{minipage}{0.7cm}
+        \textcolor{kwii_color}{\rule{0.3cm}{2.5cm}}
+    \end{minipage}
+    \begin{minipage}{0.74\textwidth}
+        \Large{\textbf{Documento de Descripción de Arquitectura}}\\
+        \LARGE{\textbf{Kwii Platform}}
+    \end{minipage}
+
+\noindent
+\\
+\textcolor{kwii_color}{\rule{\textwidth}{0.5pt}}\\
+\input{Body/index}
+
+\end{document}
