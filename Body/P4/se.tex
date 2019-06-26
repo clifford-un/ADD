@@ -24,8 +24,27 @@ Las características de seguridad protegidos en la Kwii Platform a la hora de im
 
 \subsection{Manejo de Sesión de Usuarios}
 
-Para el manejo de sesión de usuarios, la arquitectura de la Kwii Platform propone un esquema basado en tokens. En él, cualquier comunicación, solicitud de información, y en general, cualquier operación en la plataforma tiene que ser autorizada, por medio de la validación de tokens de usuario.
+Para el manejo de sesión de usuarios, la arquitectura de la Kwii Platform propone el uso de un esquema basado en tokens. En él, cualquier comunicación, solicitud de información, y en general, cualquier operación en la plataforma tiene que ser autorizada, por medio de la validación de tokens de usuario.
 
 \subsubsection{Justificación del uso de autenticación basada en tokens}
 
+Hay diversas características que hacen que la autenticación por tokens funcione bastante bien con la arquitectura propuesta de la Kwii Platform, entre ellas, se destacan las siguientes:
+
+\begin{itemize}
+    \item Los tokens siguen el principio stateless de la comunicación HTTP\\\
+    Al contener en sí mismo la información de la sesión, los tokens nos permiten manipular la autenticación de los usuarios sin la necesidad de trazar su estado.
+    \item Generación y manipulación centralizado\\\
+    La arquitectura de nuestra aplicación permite que la autenticación sea manejada únicamente por los componentes encargados de ello, así los tokens son manipuladas de manera centralizada y el resto de los componentes que sean agregados a la arquitectura no se tienen que responsabilizar por cuestiones de autenticación.
+    \item Control de acceso\\\
+    El uso de tokens de usuario nos permite determinar de manera relativamente sencilla qué usuarios tienen acceso a qué. Y restringir de manera efectiva las solicitudes de información no autorizadas.
+\end{itemize}
+
+\subsubsection{Características de Seguridad Protegidas}
+Las características de seguridad protegidos en la Kwii Platform a la hora de implementar un servidor de proxy inverson son las siguientes:
+\begin{itemize}
+    \item Confidencialidad e integridad\\\
+    El uso de tokens garantiza la confidencialidad de información creando un mecanismo de acceso en el que solo pueden acceder a la información aquellos usuarios a los que se les conceden permisos autenticándose y recibiendo un token. De la misma manera, únicamente los usuarios a los que se les asigna un token al ser autenticados, son capaces de realizar cambios en la información.
+\end{itemize}
+
 \subsection{Uso de Directorio Activo}
+
