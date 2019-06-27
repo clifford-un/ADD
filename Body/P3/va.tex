@@ -3,19 +3,21 @@ A continuación se muestran las diferentes vistas arquitectónicas que plasman l
 \subsection{Vista de Descomposición}
 La vista de descomposición encierra y describe toda nuestra aplicación en los siguientes módulos principales:
 \begin{itemize}
-    \item api-gateway:\\\\
+    \item kwii-api:\\\\
     Este módulo es el responsable de orquestar los flujos de procesos de la plataforma. En él se encuentra la lógica del manejo de peticiones, redirigiendo el trabajo de todos los microservicios de la aplicación.
     
-    \item usuarios\\\\
-    El módulo de usuarios es el encargado de llevar la lógica de los usuarios, éste a su vez es dividido en los siguientes dos submódulos:
+    \item Users\\\\
+    El módulo de usuarios es el encargado de llevar la lógica de los usuarios, éste a su vez es dividido en los siguientes tres submódulos:
     \begin{itemize}
-        \item user-ms \\\\
-        El microservicio de los usuarios, módulo encargado de almacenar y exponer la información de los usuarios. Este submódulo permite la administración de los perfiles de usuario ademas de relacionarlos entre ellos.
-        \item authentication-ms \\\\
+        \item user-ms \\\
+        El microservicio de los usuarios, módulo encargado de almacenar y exponer la información de los usuarios. Este submódulo permite la administración de los perfiles de usuario ademas de relacionarlos entre ellos y guardar registros de los usuarios en el LDAP.
+        \item authentication-ms \\\
         El microservicio de autenticación, permite a los usuarios tener sesiones dentro de la aplicación. Este microservicio es el principal para cuestiones de seguridad en la sesión de los usuarios en el sistema.
+        \item kwii-ldap\\\
+        El servicio ldap que traza información de los usuarios. Así como sus contraseñas.
     \end{itemize}
     
-    \item chats \\\\
+    \item Chats \\\\
     El módulo de chats es el gran módulo que vela por la creación de chats y la entrega de mensajes entre ellos, además también se encarga de notificar a los usuarios sobre el uso de estos chats. Este gran módulo se divide en los tres siguientes submódulos:
     \begin{itemize}
         \item chat-ms\\\
@@ -25,10 +27,28 @@ La vista de descomposición encierra y describe toda nuestra aplicación en los 
         \item notifications-ms
         El submódulo encargado de la entrega de notificaciones a los usuarios es notification-ms, él vela por informar a los usuarios de la aplicación sobre el intercambio de mensajes de la aplicación.
     \end{itemize}
+
+    \item Exposer\\\\
+    El módulo Exposer es el módulo referente a la exposición de los servicios de la aplicación. Este módulo vela por la interacción de la aplicación con el exterior. Este módulo contiene los siguientes submódulos:
+    \begin{itemize}
+        \item kwii-interface\\\
+        Este submódulo es el encargado de ofrecer y consumir servicios de nuestra plataforma a diferentes plataformas. Este submódulo contiene funcionalidades de exposición de nuestros servicios a otras plataformas.
+        \item kwii-proxy\\\
+        Este submódulo ofrece nuestros servicios a internet para que sean consumidos por usuarios a mayor escala.
+    \end{itemize}
+
+    \item Front End\\\\
+    En el módulo de front end encerramos la funcionalidad de disponer al usuario de forma cómoda la información de nuestra aplicación. Éste módulo encierra dos grandes submódulos que se refieren a la fomra de presentar nuesta información:
+    \begin{itemize}
+        \item Web Client\\\
+        Este submódulo se refiere a la funcionalidad de nuestra aplicación que expone nuestros servicios a usuarios que usan la plataforma por medio de un navegador web. 
+        \item Mobile Client\\\
+        Este submódulo se refiere a la funcionalidad de nuestra aplicación que expone nuestros servicios a usuarios que usan la plataforma por medio de un dispositivo móvil. 
+    \end{itemize}
 \end{itemize}
 
 \begin{center}
-    \includegraphics[width=12cm]{Figures/P3/decomposition.png}  
+    \includegraphics[width=16cm]{Figures/P3/Decomposition.png}  
 \end{center}
 
 \subsection{Vista de Modelos de Datos}
@@ -62,39 +82,45 @@ Para las notificaciones, es de interés guardar información sobre los dispositi
 \subsection{Vista de Componentes y Conectores}
 Para explicar el diagrama de componentes se listarán los componentes usados, junto la explicación de su uso, además de la lista de sus relaciones.
 \begin{itemize}
-    \item Componente de api\textunderscore gateway\\
+    \item Componente de kwii\textunderscore api\\
     Es el componente que se encargará de orquestar los servicios ofrecidos por la plataforma.\\
     Los elementos con los que se relaciona utilizando conectores REST son:
     \begin{itemize}
-        \item El componente de usuario:\\
+        \item El componente de User-ms:\\
         Para poder orquestar el manejo de usuarios.
-        \item El componente de autenticación:\\
+        \item El componente de Autentication-ms:\\
         Para poder orquestar el manejo de sesiones y autenticación de la aplicación.
-        \item El componente de chat:\\
+        \item El componente de Chat-ms:\\
         Para orquestar el envío de chats en la aplicación.
-        \item El componente de chat room:\\
+        \item El componente de Chatroom-ms:\\
         Para orquestar la creación de los diversos chats.
-        \item El componente de notificación:\\
+        \item El componente de Notification-ms:\\
         Para orquestar el envío de notificaciones a los usuarios.
+        \item El componente de kwii\textunderscore interface:\\
+        Para orquestar el consumo de otras plataformas.
     \end{itemize}
     Los elementos con los que se relaciona utilizando conectores GraphQL son:
     \begin{itemize}
-        \item El componente de Front End Web:\\
+        \item El componente de kwii-wa:\\
         Para poder exponer los servicios de la plataforma por medio de una interfaz web.
-        \item El componente de Font End Mobile:\\
+        \item El componente de kwii-ma:\\
         Para poder exponer los servicios de la plataforma por medio de una interfaz movil.
+        \item El componente de kwii\textunderscore interface:\\
+        Para exponer los servicios de la Kwii Platform a otras plataformas.
     \end{itemize}
-    \item Componente de Usuarios\\
+    \item Componente de User-ms\\
     Este es el componente que manejará la información de los usuarios, pero poco tendrá que ver con el manejo de sus contraseñas.
     Este componente se relaciona con los siguientes:
     \begin{itemize}
-        \item El componente User DB por medio del conector pg:\\
+        \item El componente User-db por medio del conector pg:\\
         Para almacenar los datos sobre los usuarios.
-        \item El componente api \textunderscore gateway por medio de un conector REST:\\
+        \item El componente kwii \textunderscore api por medio de un conector REST:\\
         Para exponer los servicios de los usurios a través de él.
+        \item El componente kwii \textunderscore ldpa por medio de un conector LDAP:\\
+        Para guardar información de los usuarios en un directorio.
     \end{itemize}
-    \item Componente User DB
-    Este componente almacenará la información de los usuarios\.\
+    \item Componente User-db
+    Este componente almacenará la información de los usuarios y las amistades de los usuarios.
     Los componentes que se relacionan con la base de datos de los usuarios son:
     \begin{itemize}
         \item El componente User por medio del conector pg:\\
@@ -102,25 +128,27 @@ Para explicar el diagrama de componentes se listarán los componentes usados, ju
         \item El componente Autentication por medio del conector pg node:\\
         Para adquirir las contraseñas de los usuarios.
     \end{itemize}
-    \item Componente Autenticación:\\
-    El componente de Autenticación será el encargado del manejo de sesiones dentro de la aplicación.
+    \item Componente Autenticación-ms:\\
+    El componente de Autenticación-ms será el encargado del manejo de sesiones dentro de la aplicación.
     Las relaciones de este componente son:
     \begin{itemize}
-        \item El componente api\textunderscore gateway por medio de un conector REST:\\
+        \item El componente kwii \textunderscore api por medio de un conector REST:\\
         Para exponer los servicios de la autenticación a través de él.
-        \item El componente de User DB por medio del conector pg node:\\
-        Para poder recuperar las contraseñas de los usuarios.
-        \item El componente de Autentication DB por medio del conector ioredis:\\
+        \item El componente de User-db por medio del conector pg node:\\
+        Para poder recuperar las contraseñas de los usuarios de la base de datos.
+        \item El componente de kwii-ldap por medio del conector LDAP:\\
+        Para poder verificar que sean correctas las contraseñas de los usuarios por medio del LDAP.
+        \item El componente de Autentication-db por medio del conector ioredis:\\
         Para poder usar almacenar información de User DB en cache.
     \end{itemize}
-    \item Componente de Autentication DB:\\
+    \item Componente de Autentication-db:\\
      Las contraseñas son almacenadas en caché para evitar el uso de la base de datos User DB y la verificación del JWT usando la base de datos de Usuarios.\\
      Los componentes que se comunican con él son:
      \begin{itemize}
-        \item El componente de Autentication por medio del conector ioredis:\\
+        \item El componente de Autentication-ms por medio del conector ioredis:\\
         Para poder usar la información de usuarios almacenada en caché
     \end{itemize}
-    \item Componente Chat\\
+    \item Componente Chat-ms:\\
     Es el componente encargado del tránsito de la gestión de los mensajes en el sistema.\\
     Los componentes con los que se comunica son:
     \begin{itemize}
