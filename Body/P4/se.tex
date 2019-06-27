@@ -18,7 +18,7 @@ Las características de seguridad protegidos en la Kwii Platform a la hora de im
     El servidor de proxy inverso potencia la confidencialidad de la información al disminuir los puntos de acceso a esta. Ahora, viéndonos limitados a acceder a la información de los demás componentes de la plataforma únicamente por medio del componente central, la arquitectura puede ser reforzada en estos aspectos únicamente tratando los flujos de información que pasan por dicho componente.
     \item Integridad\\\
     Así mismo como el servidor de proxy inverso asegura la confidencialidad, asegura también la integridad. Restringimos la cantidad de puntos de manipulación de la información.
-    \item Disponibilidad
+    \item Disponibilidad\\\
     Como trabajo futuro, el servidor de proxy inverso implementa dfunciones de balanceo de carga que garantizan la disponibilidad. (Próximamente)
 \end{itemize}
 
@@ -48,7 +48,29 @@ Las características de seguridad protegidos en la Kwii Platform a la hora de im
 
 \subsection{Uso del Protocolo Ligero de Acceso a Directorios (LDAP)}
 
-Para garantizar la fácil autenticación en la Kwii Platform, se propone el uso de un LDAP, con él se garantiza la escalabilidad de la aplicación ya que, varios sistemas que necesiten autenticar un usuario, podrán hacer uso de este componente.
+Para garantizar la fácil autenticación en la Kwii Platform, se propone el uso de un LDAP, con él se garantiza la escalabilidad de la aplicación ya que, varios sistemas que necesiten autenticar un usuario, podrán hacer uso de este componente. Así, el LDAP nos permite discriminar y autenticar de manera más eficiente.
 
+\subsubsection{Justificación del uso del protocolo ligero de acceso a directorios}
 
+El uso de LDAP en aplicaciones con gran volumen de usuarios concurrentes es importante para el manejo de la información de usuarios. En la siguiente lista se exponen diferentes ventajas del uso del LDAP en la arquitectura de la Kwii Platform.
 
+\begin{itemize}
+    \item Unicidad de los usuarios.\\\
+    Al escalar la aplicación, si más un componente necesita verificar la existencia y datos de un usuario en la plataforma, el uso del LDAP nos asegura un punto común de dónde consultar.
+    \item Facilidad de uso sobre TCP/IP y SSL.\\\
+    Dadas las oportunidades tecnológicas del LDAP es sencillo implementarlas en la arquitectura.
+    \item Amplio uso en otras arquitecturas.\\\
+    Que el LDAP sea usado por diferentes organizaciones es benéfico para su implementación ya que el uso de estos componentes es bien documentado y fácil de implementar. 
+\end{itemize}
+
+En el siguiente diagrama se expone un simple flujo que expone el uso del LDAP (de manera simplificada) en una funcionalidad básica de registro de usuarios.
+
+\begin{center}
+    \includegraphics[width=8cm]{Figures/P4/LDAPFlow1.png}
+\end{center}
+
+Y otra funcionalidad de creación de token de un usuario.
+
+\begin{center}
+    \includegraphics[width=8cm]{Figures/P4/LDAPFlow2.png}
+\end{center}
