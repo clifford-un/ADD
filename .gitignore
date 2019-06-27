@@ -241,5 +241,5 @@ TSWLatexianTemp*
 # generated if using elsarticle.cls
 *.spl
 
-#main aux
-main.aux
+#main.xwm
+main.xwm
