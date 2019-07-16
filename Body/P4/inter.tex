@@ -1,0 +1,8 @@
+Una de las características de la aplicación es la capacidad de intercambiar información con otros sistemas y/o componentes de software de manera que sus funcionalidades puedan ser potenciadas, complementadas o delegadas mediante la comunicación entre sistemas, bajo este principio Kwii Platform expone cada una de sus funcionalidades de manera controlada para el uso por parte de otros sistemas, e incluso por parte de otros componentes de la misma aplicación, a la vez que cuenta con la capacidad de usar información proveniente de otras aplicaciones de software.
+
+\subsection{Uso del estilo REST como estándar de comunicación}
+La vía principal de comunicación de Kwii Platform es el protocolo de comunicación REST, el cual es usado por su simpleza y expresividad. Su uso está extendido por todos los niveles de la aplicación, en particular la comunicación entre el componente orquestador y todos los micro-servicios que conforman la aplicación. Adicionalmente, haciendo uso del lenguaje de
+consulta GraphQL se potencia la capacidad de intercambio de información con otros componentes de la plataforma como sus componentes de FronEnd.
+
+\subsection{Uso de SOAP como alternativa de comunicación}
+Como complemento al protocolo REST, se usa SOAP como un protocolo alternativo de comunicación con sistemas externos a través del uso de el lenguaje de marcado XML, lo cual provee total independencia a los detalles de funcionamiento de dichos sistemas manteniendo una integridad semántica en el uso e intercambio de información, pudiendo así ser usados por Kwii Platform.
